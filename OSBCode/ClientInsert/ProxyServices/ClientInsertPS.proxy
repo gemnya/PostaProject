@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ser:coreEntry isProxy="true" isEnabled="true">
     <ser:binding type="abstract XML"/>
     <ser:monitoring isEnabled="false">
@@ -24,9 +24,35 @@
       <env:value>/ClientInsert/ProxyServices/ClientInsertPS</env:value>
     </tran:URI>
     <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
     <tran:provider-specific>
       <http:inbound-properties/>
     </tran:provider-specific>
   </ser:endpointConfig>
-  <ser:router/>
+  <ser:router>
+    <con:pipeline type="request" name="PipelinePairNode1_request">
+      <con:stage name="stage1">
+        <con:context/>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="PipelinePairNode1_response"/>
+    <con:flow>
+      <con:pipeline-node name="PipelinePairNode1">
+        <con:request>PipelinePairNode1_request</con:request>
+        <con:response>PipelinePairNode1_response</con:response>
+      </con:pipeline-node>
+      <con:route-node name="RouteNode1">
+        <con:context/>
+        <con:actions>
+          <con1:route>
+            <con2:id>_ActionId-7468687303144161141--41e6de9a.150291756b4.-7ef9</con2:id>
+            <con1:service ref="ClientInsert/BusinessServices/createCliente_db" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con1:operation>createCliente</con1:operation>
+            <con1:outboundTransform/>
+            <con1:responseTransform/>
+          </con1:route>
+        </con:actions>
+      </con:route-node>
+    </con:flow>
+  </ser:router>
 </xml-fragment>
