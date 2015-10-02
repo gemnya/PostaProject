@@ -1,4 +1,4 @@
-<adapter-config name="createAuto" adapter="Database Adapter" wsdlLocation="../../../ClientInsert/Resources/JCA/createAuto.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+<adapter-config name="createAuto" adapter="Database Adapter" wsdlLocation="../WSDL/createAuto.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
   <connection-factory location="eis/DB/Connection1" UIConnectionName="Connection1" adapterRef=""/>
   <endpoint-interaction portType="createAuto_ptt" operation="createAuto">

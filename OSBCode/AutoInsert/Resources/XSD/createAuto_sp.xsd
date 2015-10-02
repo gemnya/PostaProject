@@ -1,4 +1,6 @@
-<schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/createAuto" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/sp/createAuto" elementFormDefault="qualified">
+<schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/createAuto" 
+xmlns="http://www.w3.org/2001/XMLSchema" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/sp/createAuto"
+ elementFormDefault="qualified">
    <element name="InputParameters">
       <complexType>
          <sequence>
