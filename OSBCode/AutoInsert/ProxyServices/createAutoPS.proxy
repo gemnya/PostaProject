@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
   <ser:coreEntry isProxy="true" isEnabled="true">
     <ser:binding type="abstract XML"/>
     <ser:monitoring isEnabled="false">
@@ -24,9 +24,28 @@
       <env:value>/AutoInsert/ProxyServices/createAutoPS</env:value>
     </tran:URI>
     <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
     <tran:provider-specific>
       <http:inbound-properties/>
     </tran:provider-specific>
   </ser:endpointConfig>
-  <ser:router/>
+  <ser:router>
+    <con:pipeline type="request" name="PipelinePairNode1_request">
+      <con:stage name="stage1">
+        <con:context/>
+        <con:actions>
+          <con1:validate>
+            <con2:id>_ActionId-278158503615006741--5074ccc0.150291825ce.-7fb0</con2:id>
+          </con1:validate>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="PipelinePairNode1_response"/>
+    <con:flow>
+      <con:pipeline-node name="PipelinePairNode1">
+        <con:request>PipelinePairNode1_request</con:request>
+        <con:response>PipelinePairNode1_response</con:response>
+      </con:pipeline-node>
+    </con:flow>
+  </ser:router>
 </xml-fragment>
