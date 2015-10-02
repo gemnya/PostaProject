@@ -1,0 +1,17 @@
+<schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/createCliente" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/sp/createCliente" elementFormDefault="qualified">
+   <element name="InputParameters">
+      <complexType>
+         <sequence>
+            <element name="TIPO_DO" type="string" db:index="1" db:type="VARCHAR2" minOccurs="0" nillable="true"/>
+            <element name="NRO_DO" type="int" db:index="2" db:type="INTEGER" minOccurs="0" nillable="true"/>
+            <element name="NOMBR" type="string" db:index="3" db:type="VARCHAR2" minOccurs="0" nillable="true"/>
+            <element name="APELLID" type="string" db:index="4" db:type="VARCHAR2" minOccurs="0" nillable="true"/>
+            <element name="TELEFON" type="int" db:index="5" db:type="INTEGER" minOccurs="0" nillable="true"/>
+            <element name="EMAI" type="string" db:index="6" db:type="VARCHAR2" minOccurs="0" nillable="true"/>
+            <element name="ID_LOCALIDA" type="int" db:index="7" db:type="INTEGER" minOccurs="0" nillable="true"/>
+            <element name="DIRECCIO" type="string" db:index="8" db:type="VARCHAR2" minOccurs="0" nillable="true"/>
+            <element name="FECHA_NA" type="dateTime" db:index="9" db:type="DATE" minOccurs="0" nillable="true"/>
+         </sequence>
+      </complexType>
+   </element>
+</schema>
