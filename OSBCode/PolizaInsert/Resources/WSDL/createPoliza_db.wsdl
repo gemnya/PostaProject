@@ -1,0 +1,17 @@
+<definitions targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/ProjectSOA/Project1/createPoliza" name="createPoliza-concrete" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/ProjectSOA/Project1/createPoliza" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/ProjectSOA/Project1/createPoliza" location="createPoliza.wsdl"/>
+  <binding name="createPoliza_ptt-binding" type="tns:createPoliza_ptt">
+    <soap:binding style="document" transport="http://www.bea.com/wli/sb/transports/jca"/>
+    <operation name="createPoliza">
+      <soap:operation soapAction="createPoliza"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+    </operation>
+  </binding>
+  <service name="createPoliza-service">
+    <port name="createPoliza-port" binding="tns:createPoliza_ptt-binding">
+      <soap:address location="jca://eis/DB/Connection1"/>
+    </port>
+  </service>
+</definitions>

@@ -1,4 +1,4 @@
-<adapter-config name="createPoliza" adapter="Database Adapter" wsdlLocation="../../../ClientInsert/Resources/JCA/createPoliza.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+<adapter-config name="createPoliza" adapter="Database Adapter" wsdlLocation="../WSDL/createPoliza.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
   <connection-factory location="eis/DB/Connection1" UIConnectionName="Connection1" adapterRef=""/>
   <endpoint-interaction portType="createPoliza_ptt" operation="createPoliza">
