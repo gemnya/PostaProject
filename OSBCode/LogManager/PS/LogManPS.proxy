@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/typesystem/config" xmlns:con1="http://www.bea.com/wli/sb/pipeline/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
   <ser:coreEntry isProxy="true" isEnabled="true">
-    <ser:binding type="abstract XML"/>
+    <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
+      <con:request type="XML">
+        <con5:schema ref="LogManager/Resources/XSD/LoggerManagerRequest" element="RequestLoggerManager" xmlns:con5="http://www.bea.com/wli/sb/typesystem/config"/>
+      </con:request>
+    </ser:binding>
     <ser:monitoring isEnabled="false">
       <ser:aggregationInterval>10</ser:aggregationInterval>
       <ser:pipelineMonitoringLevel>Pipeline</ser:pipelineMonitoringLevel>
@@ -24,9 +28,92 @@
       <env:value>/LogManager/PS/LogManPS</env:value>
     </tran:URI>
     <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
     <tran:provider-specific>
       <http:inbound-properties/>
     </tran:provider-specific>
   </ser:endpointConfig>
-  <ser:router/>
+  <ser:router>
+    <con1:pipeline type="request" name="ValidacionLogMan_request">
+      <con1:stage name="ValidacionIdaLogMan">
+        <con1:context>
+          <con2:varNsDecl namespace="http://www.globallogic.com.ar/LoggerManagerRequest" prefix="log"/>
+        </con1:context>
+        <con1:actions>
+          <con3:validate>
+            <con2:id>_ActionId-2183821683824191966--7047d469.15029c0a959.-7f7a</con2:id>
+            <con3:schema ref="LogManager/Resources/XSD/LoggerManagerRequest"/>
+            <con3:schemaElement xmlns:log="http://www.globallogic.com.ar/LoggerManagerRequest">log:RequestLoggerManager</con3:schemaElement>
+            <con3:varName>body</con3:varName>
+            <con3:location>
+              <con2:xpathText>./log:RequestLoggerManager</con2:xpathText>
+            </con3:location>
+          </con3:validate>
+        </con1:actions>
+      </con1:stage>
+    </con1:pipeline>
+    <con1:pipeline type="response" name="ValidacionLogMan_response"/>
+    <con1:pipeline type="request" name="Loggeador_request">
+      <con1:stage name="LoggerIda">
+        <con1:context>
+          <con2:varNsDecl namespace="http://www.globallogic.com.ar/LoggerManagerRequest" prefix="log"/>
+        </con1:context>
+        <con1:actions>
+          <con4:log>
+            <con2:id>_ActionId-2183821683824191966--7047d469.15029c0a959.-7f93</con2:id>
+            <con4:logLevel>debug</con4:logLevel>
+            <con4:expr>
+              <con2:xqueryText>$body/log:RequestLoggerManager/log:Message</con2:xqueryText>
+            </con4:expr>
+            <con4:message>&lt;&lt;LOGGER MESSAGE>></con4:message>
+          </con4:log>
+          <con4:log>
+            <con2:id>_ActionId-2183821683824191966--7047d469.15029c0a959.-7fba</con2:id>
+            <con4:logLevel>debug</con4:logLevel>
+            <con4:expr>
+              <con2:xqueryText>$body/log:RequestLoggerManager/log:VarLoggin</con2:xqueryText>
+            </con4:expr>
+            <con4:message>&lt;&lt;LOG VARIABLE >></con4:message>
+          </con4:log>
+          <con4:log>
+            <con2:id>_ActionId-2183821683824191966--7047d469.15029c0a959.-7fab</con2:id>
+            <con4:logLevel>debug</con4:logLevel>
+            <con4:expr>
+              <con2:xqueryText>$body/log:RequestLoggerManager/log:LogContext</con2:xqueryText>
+            </con4:expr>
+            <con4:message>&lt;&lt;LOGGER CONTEXT>></con4:message>
+          </con4:log>
+        </con1:actions>
+      </con1:stage>
+    </con1:pipeline>
+    <con1:pipeline type="response" name="Loggeador_response"/>
+    <con1:pipeline type="request" name="AsignadorLOG_request">
+      <con1:stage name="AsignIda">
+        <con1:context/>
+        <con1:actions>
+          <con3:assign varName="body2">
+            <con2:id>_ActionId-2183821683824191966--7047d469.15029c0a959.-7f91</con2:id>
+            <con3:expr>
+              <con2:xqueryText>$body</con2:xqueryText>
+            </con3:expr>
+          </con3:assign>
+        </con1:actions>
+      </con1:stage>
+    </con1:pipeline>
+    <con1:pipeline type="response" name="AsignadorLOG_response"/>
+    <con1:flow>
+      <con1:pipeline-node name="ValidacionLogMan">
+        <con1:request>ValidacionLogMan_request</con1:request>
+        <con1:response>ValidacionLogMan_response</con1:response>
+      </con1:pipeline-node>
+      <con1:pipeline-node name="AsignadorLOG">
+        <con1:request>AsignadorLOG_request</con1:request>
+        <con1:response>AsignadorLOG_response</con1:response>
+      </con1:pipeline-node>
+      <con1:pipeline-node name="Loggeador">
+        <con1:request>Loggeador_request</con1:request>
+        <con1:response>Loggeador_response</con1:response>
+      </con1:pipeline-node>
+    </con1:flow>
+  </ser:router>
 </xml-fragment>
