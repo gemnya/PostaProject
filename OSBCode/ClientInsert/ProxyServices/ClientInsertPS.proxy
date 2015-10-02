@@ -101,10 +101,20 @@
         </con3:actions>
       </con3:stage>
     </con3:pipeline>
+    <con3:pipeline type="request" name="PipelinePairNode3_request">
+      <con3:stage name="stage1">
+        <con3:context/>
+      </con3:stage>
+    </con3:pipeline>
+    <con3:pipeline type="response" name="PipelinePairNode3_response"/>
     <con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
       <con:pipeline-node name="PipelinePairNode1">
         <con:request>PipelinePairNode1_request</con:request>
         <con:response>PipelinePairNode1_response</con:response>
+      </con:pipeline-node>
+      <con:pipeline-node name="PipelinePairNode3">
+        <con:request>PipelinePairNode3_request</con:request>
+        <con:response>PipelinePairNode3_response</con:response>
       </con:pipeline-node>
       <con:pipeline-node name="PipelinePairNode2">
         <con:request>PipelinePairNode2_request</con:request>
