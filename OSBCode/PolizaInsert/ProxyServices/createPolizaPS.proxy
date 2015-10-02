@@ -40,22 +40,7 @@
     </tran:provider-specific>
   </ser:endpointConfig>
   <ser:router>
-    <con:pipeline type="request" name="ValidationNode_request">
-      <con:stage name="ValidationIn">
-        <con:context/>
-        <con:actions>
-          <con1:replace contents-only="true" varName="body">
-            <con2:id>_ActionId-1970119906390346235--380ebca4.15029f62143.-7fb4</con2:id>
-            <con1:location>
-              <con2:xpathText>.</con2:xpathText>
-            </con1:location>
-            <con1:expr>
-              <con2:xqueryText>$body/*</con2:xqueryText>
-            </con1:expr>
-          </con1:replace>
-        </con:actions>
-      </con:stage>
-    </con:pipeline>
+    <con:pipeline type="request" name="ValidationNode_request"></con:pipeline>
     <con:pipeline type="response" name="ValidationNode_response">
       <con:stage name="ValidationOut">
         <con:context/>
