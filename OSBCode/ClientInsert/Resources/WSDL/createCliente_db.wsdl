@@ -1,0 +1,17 @@
+<definitions targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/ProjectSOA/Project1/createCliente" name="createCliente-concrete" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/ProjectSOA/Project1/createCliente" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/ProjectSOA/Project1/createCliente" location="createCliente.wsdl"/>
+  <binding name="createCliente_ptt-binding" type="tns:createCliente_ptt">
+    <soap:binding style="document" transport="http://www.bea.com/wli/sb/transports/jca"/>
+    <operation name="createCliente">
+      <soap:operation soapAction="createCliente"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+    </operation>
+  </binding>
+  <service name="createCliente-service">
+    <port name="createCliente-port" binding="tns:createCliente_ptt-binding">
+      <soap:address location="jca://eis/DB/Connection1"/>
+    </port>
+  </service>
+</definitions>
