@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:con="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/pipeline/config">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http">
   <ser:coreEntry isProxy="true" isEnabled="true">
     <ser:binding type="abstract XML" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config"/>
     <ser:monitoring isEnabled="false">
@@ -33,17 +33,7 @@
     <con:pipeline type="request" name="PipelinePairNode1_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
       <con:stage name="stage1">
         <con:context/>
-        <con:actions>
-          <con3:validate xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
-            <con1:id>_ActionId-7468687303144161141--41e6de9a.150291756b4.-7e82</con1:id>
-            <con3:schema ref="ClientInsert/Resources/XSD/createCliente_sp"/>
-            <con3:schemaElement xmlns:cre="http://xmlns.oracle.com/pcbpel/adapter/db/sp/createCliente">cre:InputParameters</con3:schemaElement>
-            <con3:varName>body</con3:varName>
-            <con3:location>
-              <con1:xpathText>.</con1:xpathText>
-            </con3:location>
-          </con3:validate>
-        </con:actions>
+        <con:actions/>
       </con:stage>
     </con:pipeline>
     <con:pipeline type="response" name="PipelinePairNode1_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"/>
@@ -51,20 +41,20 @@
       <con:stage name="stage1">
         <con:context/>
         <con:actions>
-          <con1:reply isError="true">
+          <con1:reply isError="true" xmlns:con1="http://www.bea.com/wli/sb/stages/config">
             <con1:id>_ActionId-7468687303144161141--41e6de9a.150291756b4.-7ed6</con1:id>
           </con1:reply>
         </con:actions>
       </con:stage>
     </con:pipeline>
-    <con2:pipeline type="request" name="PipelinePairNode2_request">
-      <con2:stage name="stage1">
-        <con2:context/>
-        <con2:actions>
-          <con:assign varName="varbody">
-            <con1:id>_ActionId-7468687303144161141--41e6de9a.150291756b4.-7ea5</con1:id>
-            <con:expr>
-              <con1:xqueryText><![CDATA[<ns0:InputParameters xmlns:ns0="http://xmlns.oracle.com/pcbpel/adapter/db/sp/createCliente">
+    <con:pipeline type="request" name="PipelinePairNode2_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="stage1">
+        <con:context/>
+        <con:actions>
+          <con1:assign varName="varbody" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7468687303144161141--41e6de9a.150291756b4.-7ea5</con2:id>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config"><![CDATA[<ns0:InputParameters xmlns:ns0="http://xmlns.oracle.com/pcbpel/adapter/db/sp/createCliente">
     <ns0:TIPO_DO>DNI</ns0:TIPO_DO>
     <ns0:NRO_DO>888</ns0:NRO_DO>
     <ns0:NOMBR>NOMBRE</ns0:NOMBR>
@@ -74,13 +64,13 @@
     <ns0:ID_LOCALIDA>1</ns0:ID_LOCALIDA>
     <ns0:DIRECCIO>DIRECCION</ns0:DIRECCIO>
     <ns0:FECHA_NA>2015-09-25T04:13:06</ns0:FECHA_NA>
-</ns0:InputParameters>]]></con1:xqueryText>
-            </con:expr>
-          </con:assign>
-        </con2:actions>
-      </con2:stage>
-    </con2:pipeline>
-    <con2:pipeline type="response" name="PipelinePairNode2_response"/>
+</ns0:InputParameters>]]></con2:xqueryText>
+            </con1:expr>
+          </con1:assign>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="PipelinePairNode2_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"/>
     <con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
       <con:pipeline-node name="PipelinePairNode1">
         <con:request>PipelinePairNode1_request</con:request>
