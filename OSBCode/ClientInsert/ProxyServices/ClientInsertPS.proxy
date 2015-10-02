@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
   <ser:coreEntry isProxy="true" isEnabled="true">
-    <ser:binding type="abstract XML"/>
+    <ser:binding type="abstract XML" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config"/>
     <ser:monitoring isEnabled="false">
       <ser:aggregationInterval>10</ser:aggregationInterval>
       <ser:pipelineMonitoringLevel>Pipeline</ser:pipelineMonitoringLevel>
@@ -18,35 +18,68 @@
     </ser:pipeline-alerting>
   </ser:coreEntry>
   <ser:endpointConfig>
-    <tran:provider-id>http</tran:provider-id>
+    <tran:provider-id>local</tran:provider-id>
     <tran:inbound>true</tran:inbound>
-    <tran:URI>
-      <env:value>/ClientInsert/ProxyServices/ClientInsertPS</env:value>
-    </tran:URI>
     <tran:inbound-properties/>
-    <tran:all-headers>false</tran:all-headers>
-    <tran:provider-specific>
-      <http:inbound-properties/>
-    </tran:provider-specific>
+    <tran:all-headers>true</tran:all-headers>
   </ser:endpointConfig>
   <ser:router>
     <con:pipeline type="request" name="PipelinePairNode1_request">
       <con:stage name="stage1">
         <con:context/>
+        <con:actions/>
       </con:stage>
     </con:pipeline>
     <con:pipeline type="response" name="PipelinePairNode1_response"/>
+    <con:pipeline type="error" name="_onErrorHandler-7468687303144161141--41e6de9a.150291756b4.-7ef8">
+      <con:stage name="stage1">
+        <con:context/>
+        <con:actions>
+          <con1:reply isError="true" xmlns:con1="http://www.bea.com/wli/sb/stages/config">
+            <con1:id>_ActionId-7468687303144161141--41e6de9a.150291756b4.-7ed6</con1:id>
+          </con1:reply>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="request" name="PipelinePairNode2_request">
+      <con:stage name="stage1">
+        <con:context/>
+        <con:actions>
+          <con1:assign varName="varbody">
+            <con2:id>_ActionId-7468687303144161141--41e6de9a.150291756b4.-7ea5</con2:id>
+            <con1:expr>
+              <con2:xqueryText><![CDATA[<ns0:InputParameters xmlns:ns0="http://xmlns.oracle.com/pcbpel/adapter/db/sp/createCliente">
+    <ns0:TIPO_DO>DNI</ns0:TIPO_DO>
+    <ns0:NRO_DO>888</ns0:NRO_DO>
+    <ns0:NOMBR>NOMBRE</ns0:NOMBR>
+    <ns0:APELLID>APELLIDO</ns0:APELLID>
+    <ns0:TELEFON>82</ns0:TELEFON>
+    <ns0:EMAI>EMAIL</ns0:EMAI>
+    <ns0:ID_LOCALIDA>1</ns0:ID_LOCALIDA>
+    <ns0:DIRECCIO>DIRECCION</ns0:DIRECCIO>
+    <ns0:FECHA_NA>2015-09-25T04:13:06</ns0:FECHA_NA>
+</ns0:InputParameters>]]></con2:xqueryText>
+            </con1:expr>
+          </con1:assign>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="PipelinePairNode2_response"/>
     <con:flow>
       <con:pipeline-node name="PipelinePairNode1">
         <con:request>PipelinePairNode1_request</con:request>
         <con:response>PipelinePairNode1_response</con:response>
       </con:pipeline-node>
-      <con:route-node name="RouteNode1">
+      <con:pipeline-node name="PipelinePairNode2">
+        <con:request>PipelinePairNode2_request</con:request>
+        <con:response>PipelinePairNode2_response</con:response>
+      </con:pipeline-node>
+      <con:route-node name="RouteNode1" error-handler="_onErrorHandler-7468687303144161141--41e6de9a.150291756b4.-7ef8">
         <con:context/>
         <con:actions>
-          <con1:route>
+          <con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
             <con2:id>_ActionId-7468687303144161141--41e6de9a.150291756b4.-7ef9</con2:id>
-            <con1:service ref="ClientInsert/BusinessServices/createCliente_db" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con1:service ref="ClientInsert/BusinessServices/createCliente_db" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
             <con1:operation>createCliente</con1:operation>
             <con1:outboundTransform/>
             <con1:responseTransform/>
