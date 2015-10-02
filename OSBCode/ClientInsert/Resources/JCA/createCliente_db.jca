@@ -1,4 +1,4 @@
-<adapter-config name="createCliente" adapter="Database Adapter" wsdlLocation="createCliente.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+<adapter-config name="createCliente" adapter="Database Adapter" wsdlLocation="../WSDL/createCliente.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
   <connection-factory location="eis/DB/Connection1" UIConnectionName="Connection1" adapterRef=""/>
   <endpoint-interaction portType="createCliente_ptt" operation="createCliente">
