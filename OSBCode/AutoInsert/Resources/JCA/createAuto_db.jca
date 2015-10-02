@@ -1,0 +1,13 @@
+<adapter-config name="createAuto" adapter="Database Adapter" wsdlLocation="../../../ClientInsert/Resources/JCA/createAuto.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/Connection1" UIConnectionName="Connection1" adapterRef=""/>
+  <endpoint-interaction portType="createAuto_ptt" operation="createAuto">
+    <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
+      <property name="SchemaName" value="ESCUELASOA2"/>
+      <property name="PackageName" value="CREATEPOLIZA"/>
+      <property name="ProcedureName" value="INSERTAUTO"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>
