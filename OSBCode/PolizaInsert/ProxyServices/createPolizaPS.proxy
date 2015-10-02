@@ -47,7 +47,7 @@
           <con1:replace contents-only="true" varName="body">
             <con2:id>_ActionId-1970119906390346235--380ebca4.15029f62143.-7fb4</con2:id>
             <con1:location>
-              <con2:xpathText>./*</con2:xpathText>
+              <con2:xpathText>.</con2:xpathText>
             </con1:location>
             <con1:expr>
               <con2:xqueryText>$body/*</con2:xqueryText>
