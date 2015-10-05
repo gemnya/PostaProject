@@ -40,7 +40,29 @@
     </tran:provider-specific>
   </ser:endpointConfig>
   <ser:router>
-    <con:pipeline type="request" name="ValidationNode_request"></con:pipeline>
+    <con:pipeline type="request" name="ValidationNode_request">
+      <con:stage name="ValidationIn">
+        <con:context/>
+      </con:stage>
+      <con:stage name="stage1">
+        <con:context/>
+        <con:actions>
+          <con1:wsCallout>
+            <con2:id>_ActionId-8890613468481544843--230f4933.15037eb4eb8.-7ff4</con2:id>
+            <con1:service/>
+            <con1:request/>
+            <con1:response/>
+            <con1:requestTransform/>
+            <con1:responseTransform>
+              <con1:replace>
+                <con2:id>_ActionId-8890613468481544843--230f4933.15037eb4eb8.-7f8a</con2:id>
+                <con1:expr/>
+              </con1:replace>
+            </con1:responseTransform>
+          </con1:wsCallout>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
     <con:pipeline type="response" name="ValidationNode_response">
       <con:stage name="ValidationOut">
         <con:context/>
